@@ -1,0 +1,8 @@
+= javascript_pack_tag 'dashboard'
+
+#dashboard
+  %app-nav{ 'active-link' => 'dashboard' }
+  %b-container{ fluid: '' }
+    %b-row
+      %b-col{ 'v-for' => 'machine of machines' , ':key' => 'machine.id' }
+        %b-card{ ':title' => 'machine.name', ':sub-title' => 'machine.location' }

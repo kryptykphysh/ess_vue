@@ -68,6 +68,21 @@ CREATE TABLE ar_internal_metadata (
 
 
 --
+-- Name: machines; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE machines (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    name character varying NOT NULL,
+    location character varying,
+    api_key uuid DEFAULT gen_random_uuid() NOT NULL,
+    config jsonb DEFAULT '"{}"'::jsonb NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
 -- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -85,11 +100,33 @@ ALTER TABLE ONLY ar_internal_metadata
 
 
 --
+-- Name: machines machines_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY machines
+    ADD CONSTRAINT machines_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: schema_migrations schema_migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY schema_migrations
     ADD CONSTRAINT schema_migrations_pkey PRIMARY KEY (version);
+
+
+--
+-- Name: index_machines_on_api_key; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_machines_on_api_key ON machines USING btree (api_key);
+
+
+--
+-- Name: index_machines_on_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_machines_on_name ON machines USING btree (name);
 
 
 --
@@ -99,6 +136,7 @@ ALTER TABLE ONLY schema_migrations
 SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
-('20180206195015');
+('20180206195015'),
+('20180207085859');
 
 
