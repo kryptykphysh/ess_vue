@@ -2,7 +2,8 @@
 
 #dashboard
   %app-nav{ 'active-link' => 'dashboard' }
-  %b-container{ fluid: '' }
+  %b-container{ fluid: '', style: 'margin-top: 1rem;' }
     %b-row
-      %b-col{ 'v-for' => 'machine of machines' , ':key' => 'machine.id' }
-        %b-card{ ':title' => 'machine.name', ':sub-title' => 'machine.location' }
+      %b-card-group{ deck: '' }
+        %b-col{ 'v-for' => 'machine of machines' , ':key' => 'machine.id' }
+          %b-card.mb-2{ style: 'max-width: 20rem; min-width: 10rem;', align: 'center', 'border-variant' => 'primary', ':title' => 'machine.name', ':sub-title' => 'machine.location' }
