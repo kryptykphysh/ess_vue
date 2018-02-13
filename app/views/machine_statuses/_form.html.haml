@@ -1,0 +1,22 @@
+= form_for @machine_status do |f|
+  - if @machine_status.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@machine_status.errors.count, "error")} prohibited this machine_status from being saved:"
+      %ul
+        - @machine_status.errors.full_messages.each do |message|
+          %li= message
+
+  .field
+    = f.label :machine
+    = f.text_field :machine
+  .field
+    = f.label :status
+    = f.text_field :status
+  .field
+    = f.label :first_logged_at
+    = f.datetime_select :first_logged_at
+  .field
+    = f.label :last_logged_at
+    = f.datetime_select :last_logged_at
+  .actions
+    = f.submit 'Save'

@@ -1,0 +1,18 @@
+%p#notice= notice
+
+%p
+  %b Machine:
+  = @machine_status.machine
+%p
+  %b Status:
+  = @machine_status.status
+%p
+  %b First logged at:
+  = @machine_status.first_logged_at
+%p
+  %b Last logged at:
+  = @machine_status.last_logged_at
+
+= link_to 'Edit', edit_machine_status_path(@machine_status)
+\|
+= link_to 'Back', machine_statuses_path

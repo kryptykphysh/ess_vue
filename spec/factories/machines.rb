@@ -23,5 +23,17 @@ FactoryBot.define do
     name 'Test Machine'
     location 'There'
     config { { actions: %w[temperature vibration] } }
+
+    trait :with_statuses do
+      transient do
+        machine_statuses_count 5
+      end
+
+      after(:create) do |machine, evaluator|
+        create_list(:machine_status, evaluator.machine_statuses_count, machine: machine)
+      end
+    end
+
+    factory :machine_with_statuses, traits: %i[with_statuses]
   end
 end

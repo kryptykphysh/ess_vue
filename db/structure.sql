@@ -68,6 +68,21 @@ CREATE TABLE ar_internal_metadata (
 
 
 --
+-- Name: machine_statuses; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE machine_statuses (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    machine_id uuid NOT NULL,
+    status_id uuid NOT NULL,
+    first_logged_at timestamp without time zone NOT NULL,
+    last_logged_at timestamp without time zone,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
 -- Name: machines; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -92,11 +107,33 @@ CREATE TABLE schema_migrations (
 
 
 --
+-- Name: statuses; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE statuses (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    name character varying,
+    display_colour integer,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    text_colour integer DEFAULT 0 NOT NULL
+);
+
+
+--
 -- Name: ar_internal_metadata ar_internal_metadata_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY ar_internal_metadata
     ADD CONSTRAINT ar_internal_metadata_pkey PRIMARY KEY (key);
+
+
+--
+-- Name: machine_statuses machine_statuses_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY machine_statuses
+    ADD CONSTRAINT machine_statuses_pkey PRIMARY KEY (id);
 
 
 --
@@ -116,6 +153,42 @@ ALTER TABLE ONLY schema_migrations
 
 
 --
+-- Name: statuses statuses_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY statuses
+    ADD CONSTRAINT statuses_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: index_machine_statuses_on_first_logged_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_machine_statuses_on_first_logged_at ON machine_statuses USING btree (first_logged_at);
+
+
+--
+-- Name: index_machine_statuses_on_last_logged_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_machine_statuses_on_last_logged_at ON machine_statuses USING btree (last_logged_at);
+
+
+--
+-- Name: index_machine_statuses_on_machine_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_machine_statuses_on_machine_id ON machine_statuses USING btree (machine_id);
+
+
+--
+-- Name: index_machine_statuses_on_status_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_machine_statuses_on_status_id ON machine_statuses USING btree (status_id);
+
+
+--
 -- Name: index_machines_on_api_key; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -130,6 +203,36 @@ CREATE INDEX index_machines_on_name ON machines USING btree (name);
 
 
 --
+-- Name: index_statuses_on_display_colour; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_statuses_on_display_colour ON statuses USING btree (display_colour);
+
+
+--
+-- Name: index_statuses_on_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_statuses_on_name ON statuses USING btree (name);
+
+
+--
+-- Name: machine_statuses fk_rails_6343a6cd49; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY machine_statuses
+    ADD CONSTRAINT fk_rails_6343a6cd49 FOREIGN KEY (status_id) REFERENCES statuses(id);
+
+
+--
+-- Name: machine_statuses fk_rails_b413d97f19; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY machine_statuses
+    ADD CONSTRAINT fk_rails_b413d97f19 FOREIGN KEY (machine_id) REFERENCES machines(id);
+
+
+--
 -- PostgreSQL database dump complete
 --
 
@@ -137,6 +240,9 @@ SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
 ('20180206195015'),
-('20180207085859');
+('20180207085859'),
+('20180212141353'),
+('20180212142415'),
+('20180212180302');
 
 

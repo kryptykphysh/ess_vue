@@ -9,18 +9,18 @@ import AppNav from '../app_nav.vue';
 
 document.addEventListener('DOMContentLoaded', () => {
   const app = new Vue({
-    el: '#dashboard',
+    el: '#status',
     data: {
-      machines: []
+      statuses: []
     },
     components: { AppNav },
     mounted() {
-      axios.get("http://localhost:5000/machines.json")
-        .then(response => { this.machines = response.data })
+      axios.get("http://localhost:5000/statuses.json")
+        .then(response => { this.statuses = response.data })
     },
     computed: {
-      orderedMachines() {
-        return this.machines.sort((a, b) => a.name - b.name);
+      orderedStatuses() {
+        return this.statuses.sort((a, b) => a.name - b.name);
       }
     }
   })

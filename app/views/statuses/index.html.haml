@@ -1,0 +1,24 @@
+= javascript_pack_tag 'status'
+
+#status
+  %app-nav{ 'active-link' => 'status' }
+  %b-container{ fluid: '', style: 'margin-top: 1rem;' }
+    %b-row{ style: 'margin-bottom: 1rem;' }
+      %b-col.float-right
+        %b-button{ size: 'lg',
+                   variant: 'primary',
+                   'v-b-modal.new-status-modal' => '',
+                   style: 'float: right;' }
+          Create Status
+    %b-row
+      %b-card-group{ deck: '' }
+        %b-col{ 'v-for' => 'status in orderedStatuses', ':key' => 'status.id' }
+          %b-card.mb-2{ style: 'max-width: 20rem; min-width: 10rem;',
+                        align: 'center',
+                        ':title' => 'status.name',
+                        ':sub-title' => 'status.display_colour',
+                        ':bg-variant' => 'status.display_colour',
+                        ':text-variant' => 'status.text_colour' }
+  %b-modal#new-status-modal{ title: 'New Status Form' }
+    %p
+      Testing

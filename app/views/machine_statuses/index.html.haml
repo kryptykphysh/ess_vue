@@ -1,0 +1,27 @@
+%h1 Listing machine_statuses
+
+%table
+  %thead
+    %tr
+      %th Machine
+      %th Status
+      %th First logged at
+      %th Last logged at
+      %th
+      %th
+      %th
+
+  %tbody
+    - @machine_statuses.each do |machine_status|
+      %tr
+        %td= machine_status.machine
+        %td= machine_status.status
+        %td= machine_status.first_logged_at
+        %td= machine_status.last_logged_at
+        %td= link_to 'Show', machine_status
+        %td= link_to 'Edit', edit_machine_status_path(machine_status)
+        %td= link_to 'Destroy', machine_status, method: :delete, data: { confirm: 'Are you sure?' }
+
+%br
+
+= link_to 'New Machine status', new_machine_status_path

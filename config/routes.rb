@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  resources :machine_statuses
+  resources :statuses
   get 'dashboard/index'
 
   resources :machines

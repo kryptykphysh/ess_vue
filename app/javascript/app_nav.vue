@@ -6,6 +6,9 @@
           <b-collapse is-nav id="nav_collapse">
               <b-navbar-nav>
                   <b-nav-item href="/" :active="activeLink == 'dashboard'">Dashboard</b-nav-item>
+                  <b-nav-item-dropdown text="Config">
+                      <b-dropdown-item href="/statuses" :active="activeLink == 'status'">Status</b-dropdown-item>
+                  </b-nav-item-dropdown>
               </b-navbar-nav>
           </b-collapse>
       </b-navbar>
