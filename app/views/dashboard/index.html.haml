@@ -14,3 +14,6 @@
                         ':title' => 'machine.name',
                         ':sub-title' => 'machine.location' }
             %p.card-text {{ machine.last_logged_status.status.name }}
+    %b-row
+      %b-button{ 'v-on:click' => 'sendMessage' }
+        Click

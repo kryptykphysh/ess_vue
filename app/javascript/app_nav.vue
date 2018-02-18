@@ -17,7 +17,9 @@
 
 <script>
 import bNavbar from 'bootstrap-vue/es/components/navbar/navbar';
-console.log('IMport run');
+App.cable.subscriptions.create(
+  { channel: 'MessageChannel', room: 'statusupdates' },
+  { received: function() { console.log(arguments); } });
 export default {
   data: function () {
       return {
